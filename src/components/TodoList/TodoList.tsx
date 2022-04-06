@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { TTodoLists,TToggleTodoLists } from "../types";
+import { TTodoLists,TToggleTodoLists } from "../../types";
+import { Header } from "../Header/Header";
 
 interface ITodoLists {
     todoLists: TTodoLists[];
@@ -7,9 +8,9 @@ interface ITodoLists {
 }
 
 const conditions:string[] = [
-    "All",
-    "isCompleted",
-    "Incomplete"
+    "all",
+    "recentThreeDays",
+    "recentWeek"
 ]
 
 export const TodoList: React.FC<ITodoLists> = ({ todoLists,toggleTodoLists }) => {
@@ -20,12 +21,17 @@ export const TodoList: React.FC<ITodoLists> = ({ todoLists,toggleTodoLists }) =>
     },[todoLists])
 
     const handleClick = (item: string) => {
-        if(item === "All"){
+        if(item === "all"){
             setFilterTodoLists(todoLists);
-        }else if(item === "isCompleted"){
-            const filter = todoLists.filter(todoList => todoList.isComplete);
+        }else if(item === "recentThreeDays"){
+            const filter = todoLists.filter(todoList => {
+                const startTime = new Date(todoList.startTime).getTime();
+                const endTime = new Date(todoList.endTime).getTime();
+                const days = (endTime - startTime)/1000/3600/24; 
+                return days < 3;
+            });
             setFilterTodoLists(filter);
-        }else if(item === "Incomplete"){
+        }else if(item === "recentWeek"){
             const filter = todoLists.filter(todoList => !todoList.isComplete);
             setFilterTodoLists(filter);
         }
@@ -33,6 +39,7 @@ export const TodoList: React.FC<ITodoLists> = ({ todoLists,toggleTodoLists }) =>
 
     return (
         <div>
+            <Header title="备忘录" methodName="add"/>
             {
                 conditions.map(item => {
                     return <button key={item} onClick={() => handleClick(item)} >{item.toUpperCase()}</button>
@@ -41,7 +48,7 @@ export const TodoList: React.FC<ITodoLists> = ({ todoLists,toggleTodoLists }) =>
             {
                 filterTodoLists.map(filterTodoList => {
                     return <div key={filterTodoList.thing}>
-                        <span style={{margin:5,textDecoration:filterTodoList.isComplete ? 'line-through' : 'none'}}>{filterTodoList.thing}</span>
+                        <span style={{margin:5,textDecoration:filterTodoList.isComplete ? 'line-through' : 'none'}}>{`${filterTodoList.thing} ${filterTodoList.endTime} ${filterTodoList.remindTime}`}</span>
                         <input type="checkbox" checked={filterTodoList.isComplete} onChange={() => toggleTodoLists(filterTodoList)}/>
                     </div>
                 })       
