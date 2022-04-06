@@ -18,3 +18,10 @@
 .content:focus {
     outline: none;
 }
+
+.direction {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    height: 30px;
+}

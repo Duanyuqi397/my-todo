@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TTodoLists,TToggleTodoLists } from "../../types";
 import { Header } from "../Header/Header";
+import "./TodoList.css";
 
 interface ITodoLists {
     todoLists: TTodoLists[];
@@ -32,7 +33,12 @@ export const TodoList: React.FC<ITodoLists> = ({ todoLists,toggleTodoLists }) =>
             });
             setFilterTodoLists(filter);
         }else if(item === "recentWeek"){
-            const filter = todoLists.filter(todoList => !todoList.isComplete);
+            const filter = todoLists.filter(todoList => {
+                const startTime = new Date(todoList.startTime).getTime();
+                const endTime = new Date(todoList.endTime).getTime();
+                const days = (endTime - startTime)/1000/3600/24; 
+                return days < 7;
+            });
             setFilterTodoLists(filter);
         }
     }
@@ -41,15 +47,20 @@ export const TodoList: React.FC<ITodoLists> = ({ todoLists,toggleTodoLists }) =>
         <div>
             <Header title="备忘录" methodName="add"/>
             {
-                conditions.map(item => {
-                    return <button key={item} onClick={() => handleClick(item)} >{item.toUpperCase()}</button>
+                conditions.map((item,index) => {
+                    return (
+                        <div key={index} style={{display:'inline'}}>
+                            <button key={item} onClick={() => handleClick(item)} >{item.toUpperCase()}</button>
+                        </div>
+                    )
                 })
             }
             {
                 filterTodoLists.map(filterTodoList => {
                     return <div key={filterTodoList.thing}>
-                        <span style={{margin:5,textDecoration:filterTodoList.isComplete ? 'line-through' : 'none'}}>{`${filterTodoList.thing} ${filterTodoList.endTime} ${filterTodoList.remindTime}`}</span>
-                        <input type="checkbox" checked={filterTodoList.isComplete} onChange={() => toggleTodoLists(filterTodoList)}/>
+                        <div style={{margin:5}} className="thing">{`${filterTodoList.thing} ${filterTodoList.endTime} ${filterTodoList.remindTime}`}</div>
+                        <div key={filterTodoList.thing} className="end-time">{filterTodoList.endTime}</div>
+                        {/* <input type="checkbox" checked={filterTodoList.isComplete} onChange={() => toggleTodoLists(filterTodoList)}/> */}
                     </div>
                 })       
             }

@@ -4,11 +4,18 @@ import { TodoList } from './components/TodoList/TodoList';
 import { AddTodoList } from './components/AddTodoList/AddTodoList';
 import { FormatDate } from './utils/FormatDate';
 import { RemindTime } from './utils/RemindTime';
+import { RemindList } from './components/RemindList/RemindList';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import './App.css';
 
 const initialTodoList: TTodoLists[] = [
   {thing: "study",isComplete: true,condition: "Complete",startTime: FormatDate(new Date()),endTime:FormatDate(new Date("2022-10-06 18:19:20")),remindTime:RemindTime(FormatDate(new Date()),FormatDate(new Date("2022-10-06 18:19:20")))},
-  {thing: "work",isComplete: false,condition: "Incomplete",startTime: FormatDate(new Date()),endTime:FormatDate(new Date("2022-04-10 18:19:20")),remindTime:RemindTime(FormatDate(new Date()),FormatDate(new Date("2022-04-10 18:19:20")))}
+  {thing: "work",isComplete: false,condition: "Incomplete",startTime: FormatDate(new Date()),endTime:FormatDate(new Date("2022-04-09 18:19:20")),remindTime:RemindTime(FormatDate(new Date()),FormatDate(new Date("2022-04-09 18:19:20")))}
 ]
 
 function App() {
@@ -51,10 +58,24 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <AddTodoList addTodo={addTodo}/>
-      <TodoList todoLists={todoLists} toggleTodoLists={toggleTodo}/>
+    <Router>
+      <div className="App">
+        {/* <Link to="/add-todo-list">
+          <TodoList todoLists={todoLists} toggleTodoLists={toggleTodo}/>
+        </Link> */}
+      <Switch>
+        <Route exact path="/">
+          <TodoList todoLists={todoLists} toggleTodoLists={toggleTodo}/>
+        </Route>
+        <Route path="/add-todo-list">
+          <AddTodoList addTodo={addTodo}/>
+        </Route>
+        <Route path="/remind-list">
+          <RemindList remindLists={todoLists}/>
+        </Route>
+      </Switch>
     </div>
+    </Router>
   );
 }
 
