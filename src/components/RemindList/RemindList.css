@@ -1,24 +1,25 @@
 .time-style-1 {
-    color:blue;
+    color:#6765E6;
     background-color: #fff;
-    padding:0 20px;
+    padding:10px 20px;
     height: 60px;
     line-height: 60px;
     width: 450px;
     margin:10px auto;
     border-radius: 10px;
+    font-size: 16px;
 }
 
 .time-style-2 {
     display: inline-block;
-    font-size: larger;
-    background-color: #F7F4F8;
-    border-radius: 3px;
-    width: 20px;
+    font-size: 20px;
+    background-color: #f0ecf1;
+    border-radius: 6px;
+    width: 30px;
     height: 60px;
     margin: 0 5px;
     text-align: center;
-    
+    font-weight: 600;
 }
 
 .remind-list {

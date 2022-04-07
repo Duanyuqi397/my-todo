@@ -10,7 +10,6 @@ interface IHeaderProps {
 }
 
 export const Header: React.FC<IHeaderProps> = ({ title,method,methodName,returnMethod }) => {
-
     return (
         <div className="header">
             <span className="back" onClick={returnMethod}>

@@ -10,8 +10,42 @@
 
 .todo-list {
     background-color: #fff;
-    width: 450px;
-    margin: 10px auto;
+    font-size: 16px;
+    width: 92%;
+    height: 70px;
+    margin: 10px 10px;
     border-radius: 10px;
     padding: 10px;
+    /* overflow: scroll; */
+}
+
+.condition-tab {
+    width: 520px;
+    height: 50px;
+    background-color: #fff;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e1dee2;
+}
+
+.condition {
+    display: flex;
+    width: 33%;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.condition button {
+    background-color: #fff;
+    height: 50px;
+    border: none;
+    color: grey;
+    font-size: 18px;
+}
+
+.condition button:focus {
+    border-bottom: 3px solid #6765E6;
 }

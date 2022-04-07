@@ -8,6 +8,7 @@
     background-color: #6765E6;
     color: white;
     line-height: 81px;
+    font-size: 22px;
 }
 
 .method {
@@ -23,6 +24,7 @@
     border: none;
     color: white;
     height: 20px;
+    font-size: 20px;
 }
 
 .back {
