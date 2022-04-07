@@ -1,6 +1,6 @@
 export const FormatDate = (strDate: any,strFormat?: any) => {
     if(!strDate) return;
-    if(!strFormat) strFormat = "yyyy-MM-dd HH:mm:ss";
+    if(!strFormat) strFormat = "yyyy-MM-dd HH:mm";
     switch(typeof strDate){
         case "string":
             strDate = new Date(strDate.replace(/-/g,"/"));

@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
-import { TAddTodoProps, TTodoLists,TToggleTodoLists } from './types';
+import React, { useState,useRef } from 'react';
+import { TAddTodoProps, ITodoLists,TToggleTodoLists } from './types';
 import { TodoList } from './components/TodoList/TodoList';
 import { AddTodoList } from './components/AddTodoList/AddTodoList';
 import { FormatDate } from './utils/FormatDate';
 import { RemindTime } from './utils/RemindTime';
 import { RemindList } from './components/RemindList/RemindList';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 import './App.css';
 
-const initialTodoList: TTodoLists[] = [
-  {thing: "study",isComplete: true,condition: "Complete",startTime: FormatDate(new Date()),endTime:FormatDate(new Date("2022-10-06 18:19:20")),remindTime:RemindTime(FormatDate(new Date()),FormatDate(new Date("2022-10-06 18:19:20")))},
-  {thing: "work",isComplete: false,condition: "Incomplete",startTime: FormatDate(new Date()),endTime:FormatDate(new Date("2022-04-09 18:19:20")),remindTime:RemindTime(FormatDate(new Date()),FormatDate(new Date("2022-04-09 18:19:20")))}
+const initialTodoList: ITodoLists[] = [
+  {thing: "客人从成都回来之后，要做个双眼皮手术，现在想做全鼻整形，需要你的专业知识，专业咨询建议",isComplete: true,condition: "Complete",startTime: FormatDate(new Date()),endTime:FormatDate(new Date("2022-10-06 18:19:20")),remindTime:RemindTime(FormatDate(new Date()),FormatDate(new Date("2022-10-06 18:19:20")))},
+  {thing: "下午四点到粤秀整形开会",isComplete: false,condition: "Incomplete",startTime: FormatDate(new Date()),endTime:FormatDate(new Date("2022-04-09 18:19:20")),remindTime:RemindTime(FormatDate(new Date()),FormatDate(new Date("2022-04-09 18:19:20")))}
 ]
 
 function App() {
   const [todoLists,setTodoLists] = useState(initialTodoList);
+  const [status,setStatus] = useState(1);
+
+  const changeStatus = (newStatus: number) => {
+    setStatus(newStatus);
+  }
 
   const addTodo: TAddTodoProps = (newTodoList,newEndTime) => {
     if(!newTodoList.trim() || !newEndTime){
@@ -44,7 +43,7 @@ function App() {
     ]);
   }
 
-  const toggleTodo: TToggleTodoLists = selectedTodoLists => {
+  const toggleTodo: TToggleTodoLists = (selectedTodoLists) => {
     const newTodoLists = todoLists.map(todoList => {
       if(todoList === selectedTodoLists){
         return {
@@ -58,24 +57,14 @@ function App() {
   }
 
   return (
-    <Router>
       <div className="App">
-        {/* <Link to="/add-todo-list">
-          <TodoList todoLists={todoLists} toggleTodoLists={toggleTodo}/>
-        </Link> */}
-      <Switch>
-        <Route exact path="/">
-          <TodoList todoLists={todoLists} toggleTodoLists={toggleTodo}/>
-        </Route>
-        <Route path="/add-todo-list">
-          <AddTodoList addTodo={addTodo}/>
-        </Route>
-        <Route path="/remind-list">
-          <RemindList remindLists={todoLists}/>
-        </Route>
-      </Switch>
+        {/* <TodoList todoLists={todoLists} toggleTodoLists={toggleTodo} />
+        <RemindList remindLists={todoLists}/>
+        <AddTodoList addTodo={addTodo} /> */}
+      {
+        status === 1 ? <AddTodoList addTodo={addTodo} changeStatus={changeStatus}/> : <TodoList todoLists={todoLists} toggleTodoLists={toggleTodo} />
+      }
     </div>
-    </Router>
   );
 }
 

@@ -1,4 +1,4 @@
-export type TTodoLists = {
+export interface ITodoLists  {
     thing: string;
     isComplete: boolean;
     startTime: number;
@@ -9,4 +9,4 @@ export type TTodoLists = {
 
 export type TAddTodoProps = (newTodoList: string,newEndTime: string) => void
 
-export type TToggleTodoLists = (selectedTodoLists: TTodoLists) => void
+export type TToggleTodoLists = (selectedTodoLists: ITodoLists) => void
