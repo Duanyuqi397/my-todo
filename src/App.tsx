@@ -19,6 +19,7 @@ const initialTodoList: ITodoLists[] = [
       FormatDate(new Date()),
       FormatDate(new Date("2022-10-06 18:19:20"))
     ),
+    remindCondition:['1小时前']
   },
   {
     thing: "下午四点到粤秀整形开会",
@@ -30,19 +31,20 @@ const initialTodoList: ITodoLists[] = [
       FormatDate(new Date()),
       FormatDate(new Date("2022-04-09 18:19:20"))
     ),
+    remindCondition:['不提醒']
   },
 ];
 
 function App() {
   const [todoLists, setTodoLists] = useState(initialTodoList);
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState(2);
   const [filterTodoList, setFilterTodoList] = useState<ITodoLists>();
   const changeStatus = (newStatus: number, filterTodoList?: ITodoLists) => {
     setStatus(newStatus);
     setFilterTodoList(filterTodoList);
   };
 
-  const addTodo: TAddTodoProps = (newTodoList, newEndTime) => {
+  const addTodo: TAddTodoProps = (newTodoList, newEndTime,newRemindCondition) => {
     if (!newTodoList.trim() || !newEndTime) {
       return;
     }
@@ -63,6 +65,7 @@ function App() {
         startTime: FormatDate(new Date()),
         endTime: newEndTime.replace("T", " "),
         remindTime: RemindTime(FormatDate(new Date()), newEndTime),
+        remindCondition: newRemindCondition
       },
     ]);
   };
@@ -99,7 +102,7 @@ function App() {
         );
       case 3:
         return (
-          <RemindList remindLists={todoLists}/>
+          <RemindList remindLists={todoLists} changeStatus={changeStatus}/>
         )
       // <RemindList  remindLists={{}}/>
     }

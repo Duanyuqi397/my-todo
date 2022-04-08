@@ -1,4 +1,4 @@
-export const FormatDate = (strDate: any,strFormat?: any) => {
+export const FormatDate = (strDate: string | Date,strFormat?: any) => {
     if(!strDate) return;
     if(!strFormat) strFormat = "yyyy-MM-dd HH:mm";
     switch(typeof strDate){
@@ -23,7 +23,7 @@ export const FormatDate = (strDate: any,strFormat?: any) => {
             mm: ('' + (strDate.getMinutes() + 100)).substring(1),
             ss: ('' + (strDate.getSeconds() + 100)).substring(1),
           };
-          return strFormat.replace(/(yyyy|MM?|dd?|HH?|mm?|ss?)/g, function () {
+          return strFormat.toString().replace(/(yyyy|MM?|dd?|HH?|mm?|ss?)/g, function () {
             return dict[arguments[0]];
           });
     }

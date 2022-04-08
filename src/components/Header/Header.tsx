@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import left from "../../assets/left.png";
+import jiahao from "../../assets/jiahao.png";
 
 interface IHeaderProps {
     title: string;
@@ -17,7 +18,10 @@ export const Header: React.FC<IHeaderProps> = ({ title,method,methodName,returnM
             </span>
             {title}
             <span className="method">
-                <button className="button" onClick={method}>{methodName == "add" ? "+" : "保存"}</button>                
+                {
+                    methodName === "add" ? <img src={jiahao} className="add" onClick={method} alt="" /> : <button className="button" onClick={method}>保存</button>
+                }
+                                
             </span>
         </div>
     )

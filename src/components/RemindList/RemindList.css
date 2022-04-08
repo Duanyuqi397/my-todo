@@ -2,24 +2,27 @@
     color:#6765E6;
     background-color: #fff;
     padding:10px 20px;
-    height: 60px;
-    line-height: 60px;
+    height: 50px;
+    line-height: 50px;
     width: 450px;
     margin:10px auto;
     border-radius: 10px;
     font-size: 16px;
+    position: absolute;
+    top: 60px;
+    left: 15px;
 }
 
 .time-style-2 {
     display: inline-block;
-    font-size: 20px;
-    background-color: #f0ecf1;
+    font-size: 22px;
+    background-color: #F5F5F9;
     border-radius: 6px;
     width: 30px;
-    height: 60px;
+    height: 50px;
     margin: 0 5px;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .remind-list {
@@ -30,4 +33,14 @@
     background-color: #fff;
     padding:10px 20px;
     position: relative;
+}
+
+.rest-time {
+    position: absolute;
+    right: 20px;
+    top: 13px;
+    color: #cecacf;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 500;
 }

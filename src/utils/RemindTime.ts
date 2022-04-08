@@ -1,4 +1,4 @@
-export const RemindTime = (startTime: any,endTime: any) => {
+export const RemindTime = (startTime: Date,endTime: any) => {
         //剩余时间
         let until = new Date(endTime).getTime();
         let now = new Date(startTime).getTime();
@@ -12,6 +12,6 @@ export const RemindTime = (startTime: any,endTime: any) => {
         let minute = Math.floor(minutes);
         let seconds = (minutes - minute)*60;
         let second = Math.floor(seconds);
-        let back = '还有'+day+'天'+hour+'小时'+minute+'分钟'+second+'秒';
+        let back = '还有'+day+'天'+hour+'小时'+minute+'分钟';
         return back;
 }

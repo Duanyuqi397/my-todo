@@ -39,14 +39,13 @@ export const AddTodoList: React.FC<IAddTodoForm> = ({
   };
 
   const saveNewTodoList = () => {
-    // const selectedCondition = remindConditions.map((remindCondition) => {
-    //    if(remindCondition.isSelected){
-
-    //    }
-    // });
-    // console.log(selectedCondition)
-    console.log(remindConditions)
-    addTodo(newTodoList, newEndTime);
+    const selectedCondition = remindConditions.filter(remindCondition => {
+        return remindCondition.isSelected === true;
+    });
+    const selectedConditionTitle = selectedCondition.map((item) => {
+        return item.title
+    })
+    addTodo(newTodoList, newEndTime,selectedConditionTitle);
     setNewTodoList("");
     setNewEndTime("");
     changeStatus(2);
@@ -58,6 +57,8 @@ export const AddTodoList: React.FC<IAddTodoForm> = ({
   const handleChangeIsSelected = (index: number) => {
     // setRemindConditions
     let t = remindConditions.slice();
+    let titleList:any = [];
+    //全选和非全选
     if (index === 0) {
       t[index].isSelected = !t[index].isSelected;
       if (t[index].isSelected) {
@@ -75,9 +76,29 @@ export const AddTodoList: React.FC<IAddTodoForm> = ({
           }
           return item;
         });
-      }
+      } 
       setRemindConditions(t);
-      console.log(remindConditions)
+    } else {
+        t[index].isSelected = !t[index].isSelected;
+        if (t[index].isSelected) {
+            t = t.map((item, i) => {
+              if (i == 0) {
+                item.isDisabled = true;
+                item.isSelected = false;
+              }
+              return item;
+            });
+          } else {
+            t = t.map((item, i) => {
+              if (i == 0) {
+                item.isDisabled = false;
+                // item.isSelected = true;
+              }
+              return item;
+            });
+          } 
+        setRemindConditions(t);
+        console.log(remindConditions)
     }
   };
 

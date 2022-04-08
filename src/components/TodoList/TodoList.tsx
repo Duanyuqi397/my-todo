@@ -46,12 +46,11 @@ export const TodoList: React.FC<ITodoListsProps> = ({
 
   const addNewTodoList = () => {
     changeStatus(1);
-    // setIsDisplayed(!isDisplayed);
-    // setAddTodoListIsDisplayed(true);
-    // toggleTodoLists(filterTodoList,2);
   };
 
-  const returnMethod = () => {};
+  const returnMethod = () => {
+      changeStatus(3);
+  };
 
   const toJump = (filterTodoList: ITodoLists) => {
     console.log(filterTodoList);
